@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Ajouter un nouveau produit</title>
+    </h:head>
+    <h:body>
+        <h1>
+            Ajouter un nouveau produit
+        </h1>        
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Id:" for="id" />
+                    <h:inputText id="id" value="#{productController.product.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
+                    <h:outputLabel value="Name:" for="name" />
+                    <h:inputText id="name" value="#{productController.product.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                    <h:outputLabel value="Description:" for="description" />
+                    <h:inputText id="description" value="#{productController.product.description}" title="Description" required="true" requiredMessage="The Description field is required."/>
+                    <h:outputLabel value="Price:" for="price" />
+                    <h:inputText id="price" value="#{productController.product.price}" title="Price" required="true" requiredMessage="The Price field is required."/>
+                    <h:outputLabel value="Location:" for="location" />
+                    <h:inputText id="location" value="#{productController.product.location}" title="Location" required="true" requiredMessage="The Location field is required."/>
+                    <h:outputLabel value="Shippable:" for="shippable" />
+                    <h:inputText id="shippable" value="#{productController.product.shippable}" title="Shippable" required="true" requiredMessage="The Shippable field is required."/>
+                    <h:outputLabel value="CategoryId:" for="categoryId" />
+                    <h:selectOneMenu id="categoryId" value="#{productController.product.categoryId}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required.">
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{fixme}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="UserId:" for="userId" />
+                    <h:selectOneMenu id="userId" value="#{productController.product.userId}" title="UserId" required="true" requiredMessage="The UserId field is required.">
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{fixme}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandButton value="Ajouter" action="#{productController.insert()}" /> 
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+
