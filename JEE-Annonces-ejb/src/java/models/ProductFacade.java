@@ -5,7 +5,7 @@
  */
 package models;
 
-import entities.Images;
+import entities.Product;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author jaouhari
  */
 @Stateless
-public class ImagesFacade extends AbstractFacade<Images> {
+public class ProductFacade extends AbstractFacade<Product> {
 
     @PersistenceContext(unitName = "JEE-Annonces-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class ImagesFacade extends AbstractFacade<Images> {
         return em;
     }
 
-    public ImagesFacade() {
-        super(Images.class);
+    public ProductFacade() {
+        super(Product.class);
     }
     
 }

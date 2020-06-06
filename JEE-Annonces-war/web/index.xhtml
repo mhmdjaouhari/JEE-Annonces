@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+        <ui:define name="title">
+            ANNONCES
+        </ui:define>
+
+        <ui:define name="head">
+
+        </ui:define>
+
+        <ui:define name="body">
+            <h:link value="NEW" outcome="NewProduct"/>
+            <br/>
+            <h:link value="ALL" outcome="AllProducts"/>
+            <div class="d-flex flex-wrap">
+                <div class="row">
+                    <ui:repeat var="category" value="#{categoryController.findAll()}" varStatus="status">
+                        <div class="col-12 col-md-6 pb-4">
+                            <div class="card">
+                                <div class="card-header bg-primary text-light">
+                                    <h5> #{category.name}</h5>
+                                    <p class="card-text">#{category.description}</p>
+                                </div>
+                                <div class="card-body">
+                                    <!-- TODO: few products from the category -->
+                                </div>
+                                <a class="card-footer text-decoration-none" href="#">Voir plus...</a>
+                            </div>
+                        </div>
+                    </ui:repeat>      
+                </div>
+            </div>
+
+        </ui:define>
+
+    </ui:composition> 
+</html>
+

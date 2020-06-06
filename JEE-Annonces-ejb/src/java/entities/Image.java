@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "IMAGES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Images.findAll", query = "SELECT i FROM Images i")
-    , @NamedQuery(name = "Images.findById", query = "SELECT i FROM Images i WHERE i.id = :id")
-    , @NamedQuery(name = "Images.findByUrl", query = "SELECT i FROM Images i WHERE i.url = :url")})
-public class Images implements Serializable {
+    @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i")
+    , @NamedQuery(name = "Image.findById", query = "SELECT i FROM Image i WHERE i.id = :id")
+    , @NamedQuery(name = "Image.findByUrl", query = "SELECT i FROM Image i WHERE i.url = :url")})
+public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,16 +47,16 @@ public class Images implements Serializable {
     private String url;
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Products productId;
+    private Product productId;
 
-    public Images() {
+    public Image() {
     }
 
-    public Images(Integer id) {
+    public Image(Integer id) {
         this.id = id;
     }
 
-    public Images(Integer id, String url) {
+    public Image(Integer id, String url) {
         this.id = id;
         this.url = url;
     }
@@ -77,11 +77,11 @@ public class Images implements Serializable {
         this.url = url;
     }
 
-    public Products getProductId() {
+    public Product getProductId() {
         return productId;
     }
 
-    public void setProductId(Products productId) {
+    public void setProductId(Product productId) {
         this.productId = productId;
     }
 
@@ -95,10 +95,10 @@ public class Images implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Images)) {
+        if (!(object instanceof Image)) {
             return false;
         }
-        Images other = (Images) object;
+        Image other = (Image) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -107,7 +107,7 @@ public class Images implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Images[ id=" + id + " ]";
+        return "entities.Image[ id=" + id + " ]";
     }
     
 }

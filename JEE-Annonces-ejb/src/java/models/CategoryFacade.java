@@ -5,7 +5,7 @@
  */
 package models;
 
-import entities.Users;
+import entities.Category;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author jaouhari
  */
 @Stateless
-public class UsersFacade extends AbstractFacade<Users> {
+public class CategoryFacade extends AbstractFacade<Category> {
 
     @PersistenceContext(unitName = "JEE-Annonces-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class UsersFacade extends AbstractFacade<Users> {
         return em;
     }
 
-    public UsersFacade() {
-        super(Users.class);
+    public CategoryFacade() {
+        super(Category.class);
     }
     
 }

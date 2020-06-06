@@ -33,14 +33,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "PRODUCTS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
-    , @NamedQuery(name = "Products.findById", query = "SELECT p FROM Products p WHERE p.id = :id")
-    , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name")
-    , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")
-    , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price")
-    , @NamedQuery(name = "Products.findByLocation", query = "SELECT p FROM Products p WHERE p.location = :location")
-    , @NamedQuery(name = "Products.findByShippable", query = "SELECT p FROM Products p WHERE p.shippable = :shippable")})
-public class Products implements Serializable {
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+    , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
+    , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
+    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
+    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
+    , @NamedQuery(name = "Product.findByLocation", query = "SELECT p FROM Product p WHERE p.location = :location")
+    , @NamedQuery(name = "Product.findByShippable", query = "SELECT p FROM Product p WHERE p.shippable = :shippable")})
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,22 +72,22 @@ public class Products implements Serializable {
     @Column(name = "SHIPPABLE")
     private int shippable;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private List<Images> imagesList;
+    private List<Image> imageList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Categories categoryId;
+    private Category categoryId;
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Users userId;
+    private User userId;
 
-    public Products() {
+    public Product() {
     }
 
-    public Products(Integer id) {
+    public Product(Integer id) {
         this.id = id;
     }
 
-    public Products(Integer id, String name, String description, double price, String location, int shippable) {
+    public Product(Integer id, String name, String description, double price, String location, int shippable) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -145,27 +145,27 @@ public class Products implements Serializable {
     }
 
     @XmlTransient
-    public List<Images> getImagesList() {
-        return imagesList;
+    public List<Image> getImageList() {
+        return imageList;
     }
 
-    public void setImagesList(List<Images> imagesList) {
-        this.imagesList = imagesList;
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
     }
 
-    public Categories getCategoryId() {
+    public Category getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Categories categoryId) {
+    public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Users getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(Users userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 
@@ -179,10 +179,10 @@ public class Products implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Products)) {
+        if (!(object instanceof Product)) {
             return false;
         }
-        Products other = (Products) object;
+        Product other = (Product) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -191,7 +191,7 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Products[ id=" + id + " ]";
+        return "entities.Product[ id=" + id + " ]";
     }
     
 }

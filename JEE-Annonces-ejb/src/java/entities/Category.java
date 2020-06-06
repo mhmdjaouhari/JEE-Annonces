@@ -31,11 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "CATEGORIES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c")
-    , @NamedQuery(name = "Categories.findById", query = "SELECT c FROM Categories c WHERE c.id = :id")
-    , @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")
-    , @NamedQuery(name = "Categories.findByDescription", query = "SELECT c FROM Categories c WHERE c.description = :description")})
-public class Categories implements Serializable {
+    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+    , @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id")
+    , @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
+    , @NamedQuery(name = "Category.findByDescription", query = "SELECT c FROM Category c WHERE c.description = :description")})
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,16 +54,16 @@ public class Categories implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
-    private List<Products> productsList;
+    private List<Product> productList;
 
-    public Categories() {
+    public Category() {
     }
 
-    public Categories(Integer id) {
+    public Category(Integer id) {
         this.id = id;
     }
 
-    public Categories(Integer id, String name, String description) {
+    public Category(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -94,12 +94,12 @@ public class Categories implements Serializable {
     }
 
     @XmlTransient
-    public List<Products> getProductsList() {
-        return productsList;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setProductsList(List<Products> productsList) {
-        this.productsList = productsList;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @Override
@@ -112,10 +112,10 @@ public class Categories implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categories)) {
+        if (!(object instanceof Category)) {
             return false;
         }
-        Categories other = (Categories) object;
+        Category other = (Category) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +124,7 @@ public class Categories implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Categories[ id=" + id + " ]";
+        return "entities.Category[ id=" + id + " ]";
     }
     
 }
