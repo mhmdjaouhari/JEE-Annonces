@@ -6,6 +6,7 @@
 package models;
 
 import entities.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,12 @@ public class UserFacade extends AbstractFacade<User> {
 
     public UserFacade() {
         super(User.class);
+    }
+    
+    public User findAllByEmail(String email) {
+        return (User)em.createNamedQuery("User.findByEmail")
+            .setParameter("email", email)
+            .getSingleResult();
     }
     
 }

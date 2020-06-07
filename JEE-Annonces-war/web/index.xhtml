@@ -17,6 +17,15 @@
             <h:link value="NEW" outcome="NewProduct"/>
             <br/>
             <h:link value="ALL" outcome="AllProducts"/>
+            <br/>
+            <h:link value="LOGIN" outcome="login"/>
+            <br/>
+            <h:panelGroup rendered="#{not empty user}">
+                <p>Welcome, #{user.name}</p>
+                <h:form>
+                    <h:commandButton value="logout" action="#{login.logout}" />
+                </h:form>
+            </h:panelGroup>
             <div class="d-flex flex-wrap">
                 <div class="row">
                     <ui:repeat var="category" value="#{categoryController.findAll()}" varStatus="status">
