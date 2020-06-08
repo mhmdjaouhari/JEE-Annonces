@@ -17,10 +17,27 @@
         <nav class="navbar navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand">ANNONCES</a>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <div class="d-flex">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-light my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
+                    </form>
+                    <h:panelGroup rendered="#{not empty user}">
+                        <!--h:link outcome="user/#{user.getId()}"-->
+                        <h:link outcome="user?id=#{user.id}">
+                            <div class="btn btn-light" >
+                                <b>#{user.name}</b>
+                            </div>
+                        </h:link>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{empty user}">
+                        <h:link outcome="login">
+                            <div class="btn btn-light" >
+                                Se connecter
+                            </div>
+                        </h:link>
+                    </h:panelGroup>
+                </div>
             </div>
         </nav>
         <div class="container">    

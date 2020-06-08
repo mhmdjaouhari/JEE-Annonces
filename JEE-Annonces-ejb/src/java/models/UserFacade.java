@@ -36,4 +36,10 @@ public class UserFacade extends AbstractFacade<User> {
             .getSingleResult();
     }
     
+    public User findById(int id) {
+        return (User) em.createNamedQuery("User.findById")
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+    
 }

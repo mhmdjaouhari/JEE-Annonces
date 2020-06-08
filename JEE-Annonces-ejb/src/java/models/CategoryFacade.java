@@ -28,5 +28,11 @@ public class CategoryFacade extends AbstractFacade<Category> {
     public CategoryFacade() {
         super(Category.class);
     }
-    
+
+    public Category findById(int id) {
+        return (Category) em.createNamedQuery("Category.findById")
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }

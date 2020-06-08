@@ -11,6 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import models.CategoryFacade;
 
 /**
@@ -32,13 +33,21 @@ public class CategoryController implements Serializable {
     private CategoryFacade categoryFacade;
 
     private Category category;
-
+    
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Category findById(int id) {
+        return categoryFacade.findById(id);
+    }
+    
+    public Category findById() {
+        return findById(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id")));
     }
 
     public List<Category> findAll() {
