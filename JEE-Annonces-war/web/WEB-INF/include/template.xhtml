@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
         <title>
-            <ui:insert name="title"/>
+            <ui:insert name="title"/><c:if test="${request.getPathInfo() eq '/index.xhtml'}">Annonces commerciales</c:if> - ANNONCES
         </title>
         <ui:insert name="head"/>
     </h:head>
@@ -23,15 +24,14 @@
                         <button class="btn btn-outline-light my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
                     </form>
                     <h:panelGroup rendered="#{not empty user}">
-                        <!--h:link outcome="user/#{user.getId()}"-->
-                        <h:link outcome="user?id=#{user.id}">
+                        <h:link outcome="/user?id=#{user.id}">
                             <div class="btn btn-light" >
                                 <b>#{user.name}</b>
                             </div>
                         </h:link>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{empty user}">
-                        <h:link outcome="login">
+                        <h:link outcome="/login">
                             <div class="btn btn-light" >
                                 Se connecter
                             </div>

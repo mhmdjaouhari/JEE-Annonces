@@ -3,6 +3,8 @@
   <persistence-unit name="JEE-Annonces-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/sample</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+    </properties>
   </persistence-unit>
 </persistence>

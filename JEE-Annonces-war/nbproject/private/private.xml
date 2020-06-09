@@ -5,13 +5,15 @@
         <group>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/AllProducts.xhtml</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/WEB-INF/include/template.xhtml</file>
-            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/login.xhtml</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/WEB-INF/include/ProductRow.xhtml</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/Login.java</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/WEB-INF/default.xhtml</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/category.xhtml</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/CategoryController.java</file>
-            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/NewProduct.xhtml</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/UserController.java</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/user.xhtml</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/r/NewProduct.xhtml</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/index.xhtml</file>
-            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/ProductController.java</file>
         </group>
     </open-files>
 </project-private>

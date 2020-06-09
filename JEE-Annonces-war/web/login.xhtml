@@ -3,10 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:composition template="/WEB-INF/include/template.xhtml">
         <ui:define name="title">
-            Login
+            Se connecter
         </ui:define>
 
         <ui:define name="head">
@@ -14,14 +15,19 @@
         </ui:define>
 
         <ui:define name="body">
+            <c:if test="${param.redirect}">
+                <div class="alert alert-danger">
+                    Vous devez d'abord vous connecter pour effectuer cette action !
+                </div>
+            </c:if>
             <h:form>
                 <div class="form-group">
-                    <h:outputText value="E-mail address" />
+                    <h:outputText value="Adresse e-mail" />
                     <h:inputText  class="form-control" id="mail" value="#{login.email}"></h:inputText>
                     <h:message for="mail"></h:message>
                 </div>
                 <div class="form-group">
-                    <h:outputText value="Password" />
+                    <h:outputText value="Mot de passe" />
                     <h:inputSecret  class="form-control" id="password" value="#{login.password}"></h:inputSecret>
                     <h:message for="password"></h:message>
                 </div>

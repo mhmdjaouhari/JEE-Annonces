@@ -5,12 +5,16 @@
  */
 package controllers;
 
+import entities.Category;
 import entities.Product;
+import entities.User;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import models.ProductFacade;
 
 /**
@@ -26,6 +30,16 @@ public class ProductController implements Serializable {
      */
     public ProductController() {
         product = new Product();
+        product.setCategoryId(new Category());
+        product.setUserId(new User());
+    }
+
+    @PostConstruct
+    public void init() {
+        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if (user != null) {
+            product.getUserId().setId(user.getId());
+        }
     }
 
     @EJB
@@ -40,14 +54,22 @@ public class ProductController implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
     }
-    
+
     public List<Product> findAll() {
         return productFacade.findAll();
+    }
+
+    public Product findById(int id) {
+        return productFacade.findById(id);
+    }
+
+    public Product findById() {
+        return findById(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id")));
     }
 
     public String insert() {
         productFacade.create(product);
         product = new Product();
-        return "index";
+        return "/index";
     }
 }

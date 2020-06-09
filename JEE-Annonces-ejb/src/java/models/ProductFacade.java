@@ -28,5 +28,11 @@ public class ProductFacade extends AbstractFacade<Product> {
     public ProductFacade() {
         super(Product.class);
     }
-    
+
+    public Product findById(int id) {
+        return (Product) em.createNamedQuery("Product.findById")
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }

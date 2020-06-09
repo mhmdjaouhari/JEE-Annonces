@@ -8,8 +8,8 @@
     <ui:composition template="/WEB-INF/include/template.xhtml">
 
         <ui:define name="title">
-            <c:set var="user" value="#{userController.findById(param.id)}" scope="request"/>
-            #{user.name}
+            <c:set var="viewUser" value="#{userController.findById(param.id)}" scope="request"/>
+            #{viewUser.name}
         </ui:define>
 
         <ui:define name="head">
@@ -19,29 +19,29 @@
         <ui:define name="body">
             <div class="mb-2">
 
-                <h:panelGroup rendered="#{not empty user}">
+                <h:panelGroup rendered="#{not empty user and user eq viewUser}">
                     <h:form>
-                        <h:commandButton class="btn btn-danger" value="Se deconnecter" action="#{login.logout}" />
+                        <h:commandButton class="btn btn-danger" value="Se déconnecter" action="#{login.logout}" />
                     </h:form>
                 </h:panelGroup>
             </div>
 
             <div>
                 <b>Tel :</b>
-                #{user.phone}
+                #{viewUser.phone}
             </div>
 
             <div>
                 <b>E-mail :</b>
-                #{user.email}
+                #{viewUser.email}
             </div>
 
             <div>
-                <b>Location :</b>
-                #{user.location}
+                <b>Lieu :</b>
+                #{viewUser.location}
             </div>
 
-            <ui:repeat var="product" value="#{user.productList}" varStatus="status">
+            <ui:repeat var="product" value="#{viewUser.productList}" varStatus="status">
                 <ui:include src="/WEB-INF/include/ProductRow.xhtml" >
                     <ui:param name="product" value="#{product}"/>
                 </ui:include>
