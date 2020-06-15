@@ -8,7 +8,7 @@
     <ui:composition template="/WEB-INF/include/template.xhtml">
 
         <ui:define name="title">
-            <c:set var="product" value="#{productController.findById(param.id)}" scope="request"/>
+            <c:set var="product" value="#{productController.findById()}" scope="request"/>
             #{product.name}
         </ui:define>
 

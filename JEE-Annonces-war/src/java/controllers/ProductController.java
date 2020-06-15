@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import models.ProductFacade;
 
 /**
@@ -30,15 +31,24 @@ public class ProductController implements Serializable {
      */
     public ProductController() {
         product = new Product();
-        product.setCategoryId(new Category());
-        product.setUserId(new User());
     }
 
     @PostConstruct
     public void init() {
+    }
+
+    public void onload() {
+        product.setCategoryId(new Category());
+        product.setUserId(new User());
+        // set the id of the user who's logged-in as the userid in the Product to be inserted
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         if (user != null) {
             product.getUserId().setId(user.getId());
+        }
+        // pre-load form default values if id given in url (edit form)
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if (id != null) {
+            product = findById(Integer.parseInt(id));
         }
     }
 
@@ -69,7 +79,15 @@ public class ProductController implements Serializable {
 
     public String insert() {
         productFacade.create(product);
+        int id = product.getId();
         product = new Product();
-        return "/index";
+        return "/product?faces-redirect=true&id=" + id;
+    }
+
+    public String update() {
+        productFacade.edit(product);
+        int id = product.getId();
+        product = new Product();
+        return "/product?faces-redirect=true&id=" + id;
     }
 }
