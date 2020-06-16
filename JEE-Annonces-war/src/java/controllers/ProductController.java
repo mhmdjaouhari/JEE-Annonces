@@ -90,4 +90,10 @@ public class ProductController implements Serializable {
         product = new Product();
         return "/product?faces-redirect=true&id=" + id;
     }
+    
+    public String delete(Product product){
+        productFacade.remove(product);
+        System.out.println("HOHO");
+        return "index?faces-redirect=true";
+    }
 }

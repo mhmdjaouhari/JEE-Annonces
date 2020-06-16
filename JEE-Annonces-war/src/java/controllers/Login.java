@@ -57,7 +57,7 @@ public class Login implements Serializable {
             if (user.getPassword().equals(password)) {
                 // LOGIN SUCCESS
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
-                return "index";
+                return "index?faces-redirect=true";
             } else {
                 // LOGIN FAILURE
                 FacesContext.getCurrentInstance().addMessage(
@@ -73,7 +73,7 @@ public class Login implements Serializable {
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index";
+        return "index?faces-redirect=true";
     }
 
 }

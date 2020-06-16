@@ -17,42 +17,63 @@
         </ui:define>
 
         <ui:define name="body">
-            <div class="mb-2">
-
-                <h:panelGroup rendered="#{not empty user and user eq product.userId}">
-                    <!-- TODO: add edit and delete buttons-->
-                </h:panelGroup>
-            </div>
-
-            <div>
-                <div>
-                    <b class="text-success">Prix</b>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div>
+                        <div>
+                            <b class="text-success">Prix</b>
+                        </div>
+                        <h4 class="d-inline-block alert alert-success py-1 px-2 mb-3"><b class="text-success">#{product.price}</b></h4>
+                    </div>
+                    <div>
+                        <div>
+                            <b>Lieu</b>
+                        </div>
+                        <p>#{product.location}</p>
+                    </div>
+                    <div>
+                        <div>
+                            <b>Livrable</b>
+                        </div>
+                        <p>#{(product.shippable==1?"Oui":"Non")}</p>
+                    </div>
+                    <div>
+                        <div>
+                            <b>Description</b>
+                        </div>
+                        <p>#{product.description}</p>
+                    </div>
                 </div>
-                <h4 class="d-inline-block alert alert-success py-1 px-2 mb-1"><b class="text-success">#{product.price}</b></h4>
-            </div>
-            <div>
-                <div>
-                    <b>Lieu</b>
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                        <h5 class="card-header">Contacter le vendeur</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <h:link class="text-body" outcome="/user?id=#{product.userId.id}" >
+                                    #{product.userId.name}
+                                </h:link>
+                            </h5>
+                            <div>
+                                <b>Tel :</b>
+                                #{product.userId.phone}
+                            </div>
+
+                            <div>
+                                <b>E-mail :</b>
+                                #{product.userId.email}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p>#{product.location}</p>
-            </div>
-            <div>
-                <div>
-                    <b>Livrable</b>
-                </div>
-                <p>#{(product.shippable==1?"Oui":"Non")}</p>
-            </div>
-            <div>
-                <div>
-                    <b>Description</b>
-                </div>
-                <p>#{product.description}</p>
             </div>
 
+            <div class="row">
 
-            <ui:repeat var="product" value="#{product.imageList}" varStatus="status">
-                <!-- TODO -->
-            </ui:repeat>
+                <ui:repeat var="product" value="#{product.imageList}" varStatus="status">
+                    <!-- TODO -->
+                </ui:repeat>
+
+            </div>
         </ui:define>
 
     </ui:composition> 
