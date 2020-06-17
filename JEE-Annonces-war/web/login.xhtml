@@ -20,19 +20,26 @@
                     Vous devez d'abord vous connecter pour effectuer cette action !
                 </div>
             </c:if>
-            <h:form>
+            <h:form class="mb-4">
                 <div class="form-group">
                     <h:outputText value="Adresse e-mail" />
-                    <h:inputText  class="form-control" id="mail" value="#{login.email}"></h:inputText>
+                    <h:inputText  class="form-control" id="mail" value="#{authController.email}"></h:inputText>
                     <h:message for="mail"></h:message>
                 </div>
                 <div class="form-group">
                     <h:outputText value="Mot de passe" />
-                    <h:inputSecret  class="form-control" id="password" value="#{login.password}"></h:inputSecret>
+                    <h:inputSecret  class="form-control" id="password" value="#{authController.password}"></h:inputSecret>
                     <h:message for="password"></h:message>
                 </div>
-                <h:commandButton class="btn btn-primary"  action="#{login.login()}" value="Login"></h:commandButton>
+                <h:commandButton class="btn btn-primary"  action="#{authController.login()}" value="Se connecter"></h:commandButton>
             </h:form>
+            <div class="alert alert-primary py-3" role="alert">
+                <h4 class="alert-heading">Vous n'avez pas de compte ? Créez le maintenant !</h4>
+                <p>
+                    Ça ne prendra que quelques minutes.
+                </p>
+                <p class="mb-0"><h:link outcome="/signup" class="btn btn-primary">S'enregister</h:link></p>
+            </div>
         </ui:define>
 
     </ui:composition> 

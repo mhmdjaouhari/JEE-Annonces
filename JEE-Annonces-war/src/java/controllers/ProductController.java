@@ -93,7 +93,6 @@ public class ProductController implements Serializable {
     
     public String delete(Product product){
         productFacade.remove(product);
-        System.out.println("HOHO");
         return "index?faces-redirect=true";
     }
 }

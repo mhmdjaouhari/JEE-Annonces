@@ -18,14 +18,15 @@ import models.UserFacade;
  *
  * @author jaouhari
  */
-@Named(value = "login")
+@Named(value = "authController")
 @RequestScoped
-public class Login implements Serializable {
+public class AuthController implements Serializable {
 
     /**
      * Creates a new instance of Login
      */
-    public Login() {
+    public AuthController() {
+        user = new User();
     }
 
     @EJB
@@ -33,6 +34,8 @@ public class Login implements Serializable {
 
     private String password;
     private String email;
+
+    private User user;
 
     public String getPassword() {
         return password;
@@ -50,7 +53,15 @@ public class Login implements Serializable {
         this.email = email;
     }
 
-    public String login() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String login() throws Exception {
         User user;
         if (email != null) {
             user = userFacade.findAllByEmail(email);
@@ -74,6 +85,33 @@ public class Login implements Serializable {
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "index?faces-redirect=true";
+    }
+
+    public void onload() {
+        user = new User();
+    }
+
+    public String signup() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        User foundUser = userFacade.findAllByEmail(user.getEmail());
+        if (foundUser != null) {
+            context.addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "L'email saisi est déjà utilisé",
+                            "Please enter correct e-mail"));
+            return "signup";
+        } else if (!user.getPassword().equals(password)) {
+            context.addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Les mots de passes saisis ne correspondent pas",
+                            "Please enter correct passwords"));
+            return "signup";
+        }
+        userFacade.create(user);
+        user = new User();
+        return "login?faces-redirect=true";
     }
 
 }
