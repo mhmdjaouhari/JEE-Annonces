@@ -70,7 +70,7 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SHIPPABLE")
-    private int shippable;
+    private int shippable = 0;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<Image> imageList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
@@ -136,12 +136,12 @@ public class Product implements Serializable {
         this.location = location;
     }
 
-    public int getShippable() {
-        return shippable;
+    public boolean isShippable() {
+        return (shippable == 1);
     }
 
-    public void setShippable(int shippable) {
-        this.shippable = shippable;
+    public void setShippable(boolean shippable) {
+        this.shippable = (shippable ? 1 : 0);
     }
 
     @XmlTransient

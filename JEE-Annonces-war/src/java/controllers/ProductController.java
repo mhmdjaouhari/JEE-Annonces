@@ -38,6 +38,7 @@ public class ProductController implements Serializable {
     }
 
     public void onload() {
+        product = new Product();
         product.setCategoryId(new Category());
         product.setUserId(new User());
         // set the id of the user who's logged-in as the userid in the Product to be inserted
@@ -80,14 +81,12 @@ public class ProductController implements Serializable {
     public String insert() {
         productFacade.create(product);
         int id = product.getId();
-        product = new Product();
         return "/product?faces-redirect=true&id=" + id;
     }
 
     public String update() {
         productFacade.edit(product);
         int id = product.getId();
-        product = new Product();
         return "/product?faces-redirect=true&id=" + id;
     }
     

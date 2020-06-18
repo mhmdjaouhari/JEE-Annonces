@@ -12,20 +12,25 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title"><h:link class="text-body" outcome="/product?id=#{product.id}">#{product.name}</h:link></h5>
-                        <div class="d-inline-block alert alert-success py-1 px-2 mb-1"><b class="text-success">#{product.price}</b></div>
-                        <p class="card-text mb-2"><small>#{product.description}</small></p>
-                        <h:panelGroup rendered="#{not empty user and user eq product.userId}">
-                                                    <div class="d-inline">
-                            <h:link type="button" class="btn btn-secondary btn-sm" outcome="/r/product?id=#{product.id}">
-                                Modifier
-                            </h:link>
-                            <h:form class="d-inline">
-                                <h:commandButton class="btn btn-danger btn-sm" 
-                                                 action="#{productController.delete(product)}"
-                                                 value="Supprimer"/>
-                            </h:form>
+                        <h5 class="card-title mb-1 text-truncate"><h:link class="text-body" outcome="/product?id=#{product.id}">#{product.name}</h:link></h5>
+                        <div class="card-subtitle mb-2 text-muted text-truncate"><small>À <b>#{product.location}</b></small></div>
+                        <div>
+                            <div class="d-inline-block alert alert-success py-1 px-2 mb-2">
+                                <b class="text-success">#{product.price}</b>
+                            </div>
                         </div>
+                        <h:panelGroup rendered="#{not empty user and user eq product.userId}">
+                            <h:form class="d-inline">
+                                <div class="btn-group">
+                                    <h:link class="btn btn-secondary btn-sm" outcome="/r/product?id=#{product.id}">
+                                        Modifier
+                                    </h:link>
+                                    <h:commandLink class="btn btn-danger btn-sm" 
+                                                   action="#{productController.delete(product)}"
+                                                   onclick="return confirm('Supprimer ?')"
+                                                   value="Supprimer"/>
+                                </div>
+                            </h:form>
                         </h:panelGroup>
                     </div>
                 </div>

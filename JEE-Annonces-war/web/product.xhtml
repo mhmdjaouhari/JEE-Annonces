@@ -35,7 +35,7 @@
                         <div>
                             <b>Livrable</b>
                         </div>
-                        <p>#{(product.shippable==1?"Oui":"Non")}</p>
+                        <p>#{(product.shippable?"Oui":"Non")}</p>
                     </div>
                     <div>
                         <div>
@@ -45,25 +45,48 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="card">
-                        <h5 class="card-header">Contacter le vendeur</h5>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <h:link class="text-body" outcome="/user?id=#{product.userId.id}" >
-                                    #{product.userId.name}
-                                </h:link>
-                            </h5>
-                            <div>
-                                <b>Tel :</b>
-                                #{product.userId.phone}
+                    <c:choose>
+                        <c:when test="${not empty user and user eq product.userId}">
+                            <div class="card">
+                                <h5 class="card-header">Gestion de votre annonce</h5>
+                                <div class="card-body">
+                                    <h:form class="d-inline">
+                                        <div class="btn-group">
+                                            <h:link class="btn btn-secondary btn-sm" outcome="/r/product?id=#{product.id}">
+                                                Modifier
+                                            </h:link>
+                                            <h:commandLink class="btn btn-danger btn-sm" 
+                                                           action="#{productController.delete(product)}"
+                                                           onclick="return confirm('Supprimer ?')"
+                                                           value="Supprimer"/>
+                                        </div>
+                                    </h:form>
+                                </div>
                             </div>
 
-                            <div>
-                                <b>E-mail :</b>
-                                #{product.userId.email}
+                        </c:when>                        
+                        <c:otherwise>
+                            <div class="card">
+                                <h5 class="card-header">Contacter le vendeur</h5>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <h:link class="text-body" outcome="/user?id=#{product.userId.id}" >
+                                            #{product.userId.name}
+                                        </h:link>
+                                    </h5>
+                                    <div>
+                                        <b>Tel :</b>
+                                        #{product.userId.phone}
+                                    </div>
+
+                                    <div>
+                                        <b>E-mail :</b>
+                                        #{product.userId.email}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 

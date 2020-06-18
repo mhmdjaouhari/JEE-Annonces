@@ -29,11 +29,20 @@ public class CategoryController implements Serializable {
         category = new Category();
     }
 
+    public void onload() {
+        category = new Category();
+        // pre-load form default values if id given in url (edit form)
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if (id != null) {
+            category = findById(Integer.parseInt(id));
+        }
+    }
+
     @EJB
     private CategoryFacade categoryFacade;
 
     private Category category;
-    
+
     public Category getCategory() {
         return category;
     }
@@ -45,7 +54,7 @@ public class CategoryController implements Serializable {
     public Category findById(int id) {
         return categoryFacade.findById(id);
     }
-    
+
     public Category findById() {
         return findById(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id")));
     }
@@ -56,7 +65,19 @@ public class CategoryController implements Serializable {
 
     public String insert() {
         categoryFacade.create(category);
-        category = new Category();
-        return "index";
+        int id = category.getId();
+        return "categories?faces-redirect=true";
+    }
+
+    public String update() {
+        categoryFacade.edit(category);
+        int id = category.getId();
+        return "categories?faces-redirect=true";
+    }
+    
+    public String delete(Category category){
+        categoryFacade.remove(category);
+        // TODO: show error alert in case of reference error in db
+        return "categories?faces-redirect=true";
     }
 }

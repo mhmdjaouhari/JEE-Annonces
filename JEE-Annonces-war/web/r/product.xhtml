@@ -32,8 +32,8 @@
                         <h:outputLabel value="Nom" for="name" />
                         <h:inputText class="form-control" id="name" value="#{productController.product.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
                     </div><div class="form-group">
-                        <h:outputLabel value="Description" for="description" />
-                        <h:inputText class="form-control" id="description" value="#{productController.product.description}" title="Description" required="true" requiredMessage="The Description field is required."/>
+                        <h:outputLabel value="Description (facultatif)" for="description" />
+                        <h:inputTextarea class="form-control" id="description" value="#{productController.product.description}" title="Description" required="true" requiredMessage="The Description field is required."/>
                     </div><div class="form-group">
                         <h:outputLabel value="Prix" for="price" />
                         <h:inputText class="form-control" id="price" value="#{productController.product.price}" title="Price" required="true" requiredMessage="The Price field is required."/>
@@ -41,8 +41,11 @@
                         <h:outputLabel value="Lieu" for="location" />
                         <h:inputText class="form-control" id="location" value="#{productController.product.location}" title="Location" required="true" requiredMessage="The Location field is required."/>
                     </div><div class="form-group">
-                        <h:outputLabel value="Livrable" for="shippable" />
-                        <h:inputText class="form-control" id="shippable" value="#{productController.product.shippable}" title="Shippable" required="true" requiredMessage="The Shippable field is required."/>
+                        <div class="form-check">
+                            <h:selectBooleanCheckbox title="Shippable" id="shippable" class="form-check-input" value="#{productController.product.shippable}" />
+                            <h:outputLabel class="form-check-label" value="Le produit est livrable (par messagerie, Poste, DHL, FedEx ou autres...)" for="shippable" />
+                            <!--h:inputText class="form-control" id="shippable" title="Shippable" required="true" requiredMessage="The Shippable field is required."/-->
+                        </div>
                     </div><div class="form-group">
                         <h:outputLabel value="Catégorie" for="categoryId" />
                         <h:selectOneMenu class="form-control" id="categoryId" value="#{productController.product.categoryId.id}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required.">

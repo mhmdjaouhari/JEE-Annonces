@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+        <ui:define name="title">
+            Gestion des catégories
+        </ui:define>
+
+        <ui:define name="head">
+
+        </ui:define>
+
+        <ui:define name="body">
+            <h:link type="button" class="btn btn-primary btn-lg btn-block mb-2" outcome="/r/admin/category">
+                Ajouter une nouvelle catégorie
+            </h:link>
+            <f:view>
+                <h:form>
+                    <h:dataTable value="#{categoryController.findAll()}" var="category" 
+                                 class="table table-responsive table-hover" 
+                                 headerClass="table-secondary">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:link class="text-body" outcome="/category?id=#{category.id}">
+                                <b><h:outputText value="#{category.name}"/></b>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{category.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <div class="btn-group">
+                                <h:link class="btn btn-sm btn-secondary" outcome="/r/admin/category?id=#{category.id}">
+                                    Modifier
+                                </h:link>
+                                <h:commandLink class="btn btn-sm btn-danger" 
+                                               action="#{categoryController.delete(category)}" 
+                                               onclick="return confirm('Supprimer ?')"
+                                               value="Supprimer" />
+                            </div>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </f:view>
+
+        </ui:define>
+
+    </ui:composition> 
+</html>
