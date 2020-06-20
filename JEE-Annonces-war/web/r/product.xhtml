@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <f:metadata>
         <f:event type="preRenderView" listener="#{productController.onload}" />
     </f:metadata>
@@ -27,31 +28,43 @@
 
         <ui:define name="body">
             <f:view>
-                <h:form>
+                <h:form enctype="multipart/form-data"> 
                     <div class="form-group">
                         <h:outputLabel value="Nom" for="name" />
                         <h:inputText class="form-control" id="name" value="#{productController.product.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <h:outputLabel value="Description (facultatif)" for="description" />
-                        <h:inputTextarea class="form-control" id="description" value="#{productController.product.description}" title="Description" required="true" requiredMessage="The Description field is required."/>
-                    </div><div class="form-group">
+                        <h:inputTextarea class="form-control" id="description" value="#{productController.product.description}" title="Description" />
+                    </div>
+                    <div class="form-group">
                         <h:outputLabel value="Prix" for="price" />
                         <h:inputText class="form-control" id="price" value="#{productController.product.price}" title="Price" required="true" requiredMessage="The Price field is required."/>
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <h:outputLabel value="Lieu" for="location" />
                         <h:inputText class="form-control" id="location" value="#{productController.product.location}" title="Location" required="true" requiredMessage="The Location field is required."/>
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <div class="form-check">
                             <h:selectBooleanCheckbox title="Shippable" id="shippable" class="form-check-input" value="#{productController.product.shippable}" />
                             <h:outputLabel class="form-check-label" value="Le produit est livrable (par messagerie, Poste, DHL, FedEx ou autres...)" for="shippable" />
-                            <!--h:inputText class="form-control" id="shippable" title="Shippable" required="true" requiredMessage="The Shippable field is required."/-->
                         </div>
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <h:outputLabel value="Catégorie" for="categoryId" />
                         <h:selectOneMenu class="form-control" id="categoryId" value="#{productController.product.categoryId.id}" title="CategoryId" required="true" requiredMessage="The CategoryId field is required.">
                             <f:selectItems value="#{categoryController.findAll()}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}"/>
                         </h:selectOneMenu>
                     </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Images" for="images" />
+                        <h:inputFile class="form-control" id="images" title="images" value="#{productController.file}" a:multiple="true">
+                            <f:passThroughAttribute name="accept" value="image/png"/>
+                            <f:ajax listener="#{productController.uploadImages()}" />
+                        </h:inputFile>
+                    </div>
+
                     <c:choose>
                         <c:when test="${param.id != null}">
                             <h:commandButton  class="btn btn-primary" value="Mettre à jour" action="#{productController.update()}">
