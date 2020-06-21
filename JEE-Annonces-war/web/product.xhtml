@@ -93,12 +93,18 @@
                 </div>
             </div>
 
-            <div class="row">
-
-                <ui:repeat var="image" value="#{product.imageList}" varStatus="status">
-                    <h:graphicImage name="images/uploaded/#{image.url}" height="120"/>
-                </ui:repeat>
-
+            <div class="py-3">
+                <c:choose>
+                    <c:when test="${product.getImageList().size() == 0}">
+                        <b class="text-muted text-center w-100">(pas d'images)</b>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="mb-2"><b>Images</b></div>
+                        <ui:repeat var="image" value="#{product.imageList}" varStatus="status">
+                            <h:graphicImage name="images/uploaded/#{image.url}" class="img-fluid rounded mb-2 d-block"/>
+                        </ui:repeat>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </ui:define>
 

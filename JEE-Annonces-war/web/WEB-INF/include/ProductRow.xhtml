@@ -3,16 +3,40 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
         <ui:composition>
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <a href="/product?id=#{product.id}"><img src="..." class="card-img" alt="..."/></a>
+                    <a href="/product?id=#{product.id}">
+                        <c:choose>
+                            <c:when test="${product.getImageList().size() == 0}">
+                                <b class="text-muted text-center w-100">(pas d'images)</b>
+                            </c:when>
+                            <c:otherwise>
+                                <ui:repeat var="image" value="#{product.imageList}" varStatus="status">
+                                    <h:panelGroup rendered="#{status.first}">
+                                        <div class="w-100 h-100" 
+                                             style="
+                                             background-image:url(#{request.contextPath}/p/javax.faces.resource/images/uploaded/#{image.url});
+                                             background-size: cover;
+                                             background-position: center;
+                                             "/>
+                                    </h:panelGroup>
+
+                                </ui:repeat>
+                            </c:otherwise>
+                        </c:choose>
+                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title mb-1 text-truncate"><h:link class="text-body" outcome="/product?id=#{product.id}">#{product.name}</h:link></h5>
+                        <h5 class="card-title mb-1 text-truncate">
+                            <h:link class="text-body" outcome="/product?id=#{product.id}">
+                                #{product.name}
+                            </h:link>
+                        </h5>
                         <div class="card-subtitle mb-2 text-muted text-truncate"><small>À <b>#{product.location}</b></small></div>
                         <div>
                             <div class="d-inline-block alert alert-success py-1 px-2 mb-2">
