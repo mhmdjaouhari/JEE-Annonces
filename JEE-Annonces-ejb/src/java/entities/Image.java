@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,28 +27,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jaouhari
  */
 @Entity
-@Table(name = "IMAGES")
+@Table(name = "images")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i")
-    , @NamedQuery(name = "Image.findById", query = "SELECT i FROM Image i WHERE i.id = :id")
-    , @NamedQuery(name = "Image.findByUrl", query = "SELECT i FROM Image i WHERE i.url = :url")})
+    , @NamedQuery(name = "Image.findById", query = "SELECT i FROM Image i WHERE i.id = :id")})
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4000)
-    @Column(name = "URL")
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "url")
     private String url;
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "product", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product productId;
+    private Product product;
 
     public Image() {
     }
@@ -77,12 +78,12 @@ public class Image implements Serializable {
         this.url = url;
     }
 
-    public Product getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override

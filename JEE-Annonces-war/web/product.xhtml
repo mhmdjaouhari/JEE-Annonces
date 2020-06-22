@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <c:choose>
-                        <c:when test="${not empty user and user eq product.userId}">
+                        <c:when test="${not empty user and user eq product.user}">
                             <div class="card">
                                 <h5 class="card-header">Gestion de votre annonce</h5>
                                 <div class="card-body">
@@ -73,18 +73,18 @@
                                 <h5 class="card-header">Contacter le vendeur</h5>
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <h:link class="text-body" outcome="/user?id=#{product.userId.id}" >
-                                            #{product.userId.name}
+                                        <h:link class="text-body" outcome="/user?id=#{product.user.id}" >
+                                            #{product.user.name}
                                         </h:link>
                                     </h5>
                                     <div>
                                         <b>Tel :</b>
-                                        #{product.userId.phone}
+                                        #{product.user.phone}
                                     </div>
 
                                     <div>
                                         <b>E-mail :</b>
-                                        #{product.userId.email}
+                                        #{product.user.email}
                                     </div>
                                 </div>
                             </div>

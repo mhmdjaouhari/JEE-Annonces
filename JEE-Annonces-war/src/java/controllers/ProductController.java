@@ -51,12 +51,12 @@ public class ProductController implements Serializable {
 
     public void onload() {
         product = new Product();
-        product.setCategoryId(new Category());
-        product.setUserId(new User());
+        product.setCategory(new Category());
+        product.setUser(new User());
         // set the id of the user who's logged-in as the userid in the Product to be inserted
         User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         if (user != null) {
-            product.getUserId().setId(user.getId());
+            product.getUser().setId(user.getId());
         }
         // pre-load form default values if id given in url (edit form)
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
@@ -111,7 +111,7 @@ public class ProductController implements Serializable {
         for (String filePath : imageFileNames) {
             Image image = new Image();
             image.setUrl(filePath);
-            image.setProductId(product);
+            image.setProduct(product);
             imageFacade.create(image);
         }
         System.out.println("DONE INSERT");

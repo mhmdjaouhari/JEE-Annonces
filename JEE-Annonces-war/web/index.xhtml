@@ -18,27 +18,25 @@
             <br/>
             <h:link value="ALL" outcome="/AllProducts"/>
             <br/>
-            <div class="d-flex flex-wrap">
-                <div class="row">
-                    <ui:repeat var="category" value="#{categoryController.findAll()}" varStatus="status">
-                        <div class="col-12 col-md-6 pb-4">
-                            <div class="card">
-                                <div class="card-header bg-primary text-light">
-                                    <h5><h:link class="text-white" outcome="/category?id=#{category.id}">#{category.name}</h:link></h5>
-                                    <p class="card-text">#{category.description}</p>
-                                </div>
-                                <div class="card-body p-0">
-                                    <ui:repeat var="product" value="#{category.productList}" varStatus="status">
-                                        <ui:include src="/WEB-INF/include/ProductRow.xhtml" >
-                                            <ui:param name="product" value="#{product}"/>
-                                        </ui:include>
-                                    </ui:repeat>
-                                </div>
-                                <h:link class="card-footer text-decoration-none" value="Voir plus..." outcome="/category?id=#{category.id}"/>
+            <div class="row">
+                <ui:repeat var="category" value="#{categoryController.findAll()}" varStatus="status">
+                    <div class="col-12 col-md-6 pb-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-light">
+                                <h5><h:link class="text-white" outcome="/category?id=#{category.id}">#{category.name}</h:link></h5>
+                                <p class="card-text">#{category.description}</p>
                             </div>
+                            <div class="card-body p-0">
+                                <ui:repeat var="product" value="#{category.productList}" varStatus="status">
+                                    <ui:include src="/WEB-INF/include/ProductRow.xhtml" >
+                                        <ui:param name="product" value="#{product}"/>
+                                    </ui:include>
+                                </ui:repeat>
+                            </div>
+                            <h:link class="card-footer text-decoration-none" value="Voir plus..." outcome="/category?id=#{category.id}"/>
                         </div>
-                    </ui:repeat>      
-                </div>
+                    </div>
+                </ui:repeat>      
             </div>
 
         </ui:define>

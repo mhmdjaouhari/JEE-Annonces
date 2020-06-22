@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,15 +31,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jaouhari
  */
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "products")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
-    , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
-    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findByLocation", query = "SELECT p FROM Product p WHERE p.location = :location")
     , @NamedQuery(name = "Product.findByShippable", query = "SELECT p FROM Product p WHERE p.shippable = :shippable")})
 public class Product implements Serializable {
 
@@ -46,39 +44,40 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4000)
-    @Column(name = "NAME")
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4000)
-    @Column(name = "DESCRIPTION")
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "description")
     private String description;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PRICE")
-    private double price;
+    @Column(name = "price")
+    private float price;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4000)
-    @Column(name = "LOCATION")
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "location")
     private String location;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "SHIPPABLE")
-    private int shippable = 0;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    @Column(name = "shippable")
+    private boolean shippable;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Image> imageList;
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Category categoryId;
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    private Category category;
+    @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
+    private User user;
 
     public Product() {
     }
@@ -87,10 +86,9 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String name, String description, double price, String location, int shippable) {
+    public Product(Integer id, String name, float price, String location, boolean shippable) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.price = price;
         this.location = location;
         this.shippable = shippable;
@@ -120,11 +118,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -136,12 +134,12 @@ public class Product implements Serializable {
         this.location = location;
     }
 
-    public boolean isShippable() {
-        return (shippable == 1);
+    public boolean getShippable() {
+        return shippable;
     }
 
     public void setShippable(boolean shippable) {
-        this.shippable = (shippable ? 1 : 0);
+        this.shippable = shippable;
     }
 
     @XmlTransient
@@ -153,20 +151,20 @@ public class Product implements Serializable {
         this.imageList = imageList;
     }
 
-    public Category getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
