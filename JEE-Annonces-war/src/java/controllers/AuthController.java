@@ -10,6 +10,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import models.UserFacade;
@@ -61,7 +62,7 @@ public class AuthController implements Serializable {
         this.user = user;
     }
 
-    public String login() throws Exception {
+    public String login() {
         User user;
         if (email != null) {
             user = userFacade.findAllByEmail(email);
@@ -84,7 +85,7 @@ public class AuthController implements Serializable {
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
 
     public void onload() {

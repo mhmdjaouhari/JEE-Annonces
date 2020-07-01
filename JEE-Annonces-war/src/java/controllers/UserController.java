@@ -28,6 +28,14 @@ public class UserController implements Serializable {
     public UserController() {
         user = new User();
     }
+    
+    public void onload(){
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if (id != null) {
+            // pre-load form default values if id given in url (edit form)
+            user = findById(Integer.parseInt(id));
+        }
+    }
 
     public User findById(int id) {
         return userFacade.findById(id);
@@ -46,6 +54,22 @@ public class UserController implements Serializable {
         userFacade.create(user);
         user = new User();
         return "index";
+    }
+
+    public String update() {
+        userFacade.edit(user);
+        int id = user.getId();
+        return "/user?faces-redirect=true&id=" + id;
+    }
+
+    public String grantAdmin() {
+        user.setRole(1);
+        return update();
+    }
+
+    public String revokeAdmin() {
+        user.setRole(0);
+        return update();
     }
 
 }

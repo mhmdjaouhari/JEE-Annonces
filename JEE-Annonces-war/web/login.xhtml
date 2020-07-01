@@ -20,6 +20,12 @@
                     Vous devez d'abord vous connecter pour effectuer cette action !
                 </div>
             </c:if>
+            <c:if test="${param.notadmin}">
+                <div class="alert alert-danger">
+                    Vous devez d'abord vous connecter <b>en tant qu'administrateur</b> pour effectuer cette action !
+                </div>
+            </c:if>
+            
             <h:form class="mb-4">
                 <div class="form-group">
                     <h:outputText value="Adresse e-mail" />

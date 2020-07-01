@@ -58,10 +58,13 @@ public class ProductController implements Serializable {
         if (user != null) {
             product.getUser().setId(user.getId());
         }
-        // pre-load form default values if id given in url (edit form)
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
         if (id != null) {
+            // pre-load form default values if id given in url (edit form)
             product = findById(Integer.parseInt(id));
+        } else {
+            // set user location as default location for the product
+            product.setLocation(user.getLocation());
         }
     }
 
@@ -128,8 +131,6 @@ public class ProductController implements Serializable {
         for (Image image : product.getImageList()) {
             // remove image from db
             imageFacade.remove(image);
-            // remove image file
-
         }
         // remove product
         productFacade.remove(product);
@@ -146,7 +147,7 @@ public class ProductController implements Serializable {
             for (Part file : getAllParts(file)) {
                 // upload the file
                 InputStream in = file.getInputStream();
-                String fileName = file.getSubmittedFileName() + "-" + Instant.now().getEpochSecond();
+                String fileName =  Instant.now().getEpochSecond() + "-" + file.getSubmittedFileName();
                 File f = new File("/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/resources/images/uploaded/"
                         + fileName);
                 f.createNewFile();

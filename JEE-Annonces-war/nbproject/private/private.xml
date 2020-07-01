@@ -6,8 +6,9 @@
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/WEB-INF/include/ProductRow.xhtml</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/WEB-INF/include/template.xhtml</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/product.xhtml</file>
-            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/r/product.xhtml</file>
-            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/index.xhtml</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/CategoryController.java</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/user.xhtml</file>
+            <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/AuthController.java</file>
             <file>file:/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/src/java/controllers/ProductController.java</file>
         </group>
     </open-files>

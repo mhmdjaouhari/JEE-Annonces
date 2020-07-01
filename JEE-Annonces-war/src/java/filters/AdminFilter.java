@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author jaouhari
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/r/admin/*"})
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/p/r/admin/*"})
 public class AdminFilter implements Filter {
 
     private static final boolean debug = true;
@@ -138,15 +138,16 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
-        String loginURI = request.getContextPath() + request.getServletPath() + "/login.xhtml?redirect=true";
+        String loginURI = request.getContextPath() + request.getServletPath() + "/login.xhtml?notadmin=true";
 
-        User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-//
-//        if (user.getRole() > 0) {
-//            chain.doFilter(request, response);
-//        } else {
-//            response.sendRedirect(loginURI);
-//        }
+        User user = (User)session.getAttribute("user");
+        boolean loggedIn = session != null && user != null;
+
+        if (loggedIn && user.getRole() > 0) {
+            chain.doFilter(request, response);
+        } else {
+            response.sendRedirect(loginURI);
+        }
     }
 
     /**

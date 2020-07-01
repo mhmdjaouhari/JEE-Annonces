@@ -9,26 +9,26 @@
         <ui:composition>
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <a href="/product?id=#{product.id}">
-                        <c:choose>
-                            <c:when test="${product.getImageList().size() == 0}">
+                    <h:link outcome="/product?id=#{product.id}" class="text-decoration-none">
+                        <c:set var="length" value="#{product.getImageList().size()}"/>
+                        <h:panelGroup rendered="#{length > 0}">
+                            <ui:repeat var="image" value="#{product.imageList}" varStatus="status">
+                                <h:panelGroup rendered="#{status.first}">
+                                    <div class="w-100 h-100" 
+                                         style="
+                                         background-image:url(#{request.contextPath}/p/javax.faces.resource/images/uploaded/#{image.url});
+                                         background-size: cover;
+                                         background-position: center;
+                                         "/>
+                                </h:panelGroup>
+                            </ui:repeat>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{length == 0}">
+                            <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light">
                                 <b class="text-muted text-center w-100">(pas d'images)</b>
-                            </c:when>
-                            <c:otherwise>
-                                <ui:repeat var="image" value="#{product.imageList}" varStatus="status">
-                                    <h:panelGroup rendered="#{status.first}">
-                                        <div class="w-100 h-100" 
-                                             style="
-                                             background-image:url(#{request.contextPath}/p/javax.faces.resource/images/uploaded/#{image.url});
-                                             background-size: cover;
-                                             background-position: center;
-                                             "/>
-                                    </h:panelGroup>
-
-                                </ui:repeat>
-                            </c:otherwise>
-                        </c:choose>
-                    </a>
+                            </div>
+                        </h:panelGroup>
+                    </h:link>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
