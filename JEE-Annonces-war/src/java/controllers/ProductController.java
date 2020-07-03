@@ -17,7 +17,10 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import models.ImageFacade;
 import models.ProductFacade;
 
@@ -61,7 +65,7 @@ public class ProductController implements Serializable {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
         if (id != null) {
             // pre-load form default values if id given in url (edit form)
-            product = findById(Integer.parseInt(id));
+            product = findById(Integer.parseInt(id));            
         } else {
             // set user location as default location for the product
             product.setLocation(user.getLocation());
@@ -77,6 +81,7 @@ public class ProductController implements Serializable {
     private Product product;
     private Part file;
     private HashSet<String> imageFileNames = new HashSet();
+    private String searchString;
 
     public Product getProduct() {
         return product;
@@ -95,7 +100,9 @@ public class ProductController implements Serializable {
     }
 
     public List<Product> findAll() {
-        return productFacade.findAll();
+        List<Product> productList = productFacade.findAll();
+        Collections.reverse(productList);
+        return productList;
     }
 
     public Product findById(int id) {
@@ -104,6 +111,14 @@ public class ProductController implements Serializable {
 
     public Product findById() {
         return findById(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id")));
+    }
+
+    public String getSearchString() {
+        return searchString;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
     }
 
     public String insert() {
@@ -117,11 +132,11 @@ public class ProductController implements Serializable {
             image.setProduct(product);
             imageFacade.create(image);
         }
-        System.out.println("DONE INSERT");
         return "/product?faces-redirect=true&id=" + id;
     }
 
     public String update() {
+        product.setCategory(new Category(product.getCategory().getId()));
         productFacade.edit(product);
         int id = product.getId();
         return "/product?faces-redirect=true&id=" + id;
@@ -147,7 +162,7 @@ public class ProductController implements Serializable {
             for (Part file : getAllParts(file)) {
                 // upload the file
                 InputStream in = file.getInputStream();
-                String fileName =  Instant.now().getEpochSecond() + "-" + file.getSubmittedFileName();
+                String fileName = Instant.now().getEpochSecond() + "-" + file.getSubmittedFileName();
                 File f = new File("/home/jaouhari/NetBeansProjects/JEE-Annonces/JEE-Annonces-war/web/resources/images/uploaded/"
                         + fileName);
                 f.createNewFile();
@@ -162,11 +177,30 @@ public class ProductController implements Serializable {
                 // memorize filenames (unique)
                 imageFileNames.add(fileName);
             }
-
         } catch (Exception e) {
             e.printStackTrace(System.out);
         }
+    }
+    
+    public String search(){
+        String currentSearchString = searchString;
+        searchString = "";
+        return "/search?faces-redirect=true&amp;q=" + currentSearchString;
+    }
 
+    public String getProductString(Product p) {
+        return p.getName() + " " + p.getLocation() + " " + p.getDescription();
+    }
+
+    public List<Product> getSearchResults(String searchString) {
+        List<Product> searchResults = findAll();
+        Collections.sort(searchResults, (Product o1, Product o2) -> {
+            int ratio1 = FuzzySearch.tokenSetRatio(getProductString(o1), searchString);
+            int ratio2 = FuzzySearch.tokenSetRatio(getProductString(o2), searchString);
+            // System.out.println("ratio1 = " + ratio1 + ", ratio2 = " + ratio2);
+            return ratio2 - ratio1;
+        });
+        return searchResults;
     }
 
 }
